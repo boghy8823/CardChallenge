@@ -19,7 +19,7 @@ const storage = {
     getItem: function (name) {
       if (this.isLocalStorageSupported()) {
         const ret = localStorage.getItem(name);
-  console.log("Item ", ret);
+        
         switch (ret) {
           case "true":
             return true;

@@ -1,4 +1,4 @@
-const twoDigs = (num) => {
+const twoDigits = (num) => {
   return num < 10 && num > -10 ? "0" + num : num;
 };
 
@@ -7,7 +7,7 @@ export const formatDuration = (secs) => {
   const hours = Math.floor(secNum / 3600);
   const minutes = Math.floor(secNum / 60) % 60;
   const seconds = secNum % 60;
-  return twoDigs(hours) + ":" + twoDigs(minutes) + ":" + twoDigs(seconds);
+  return twoDigits(hours) + ":" + twoDigits(minutes) + ":" + twoDigits(seconds);
 };
 
 export const isToday = (date) => {

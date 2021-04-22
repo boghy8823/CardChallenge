@@ -1,43 +1,16 @@
-import { combineReducers } from "redux";
-import {
-  RANGE_SELECTED,
-  FETCH_RECORDS,
-  UPDATE_CURRENT_RECORD
-} from "../actions/types";
-import { RANGES } from "../constants/ranges";
+import { SAVE_SESSION, FETCH_SESSIONS } from "../actions/types";
 
-const recordsReducer = (records = [], action) => {
+const initialState = { currentSession: null, error: null, loading: false };
+
+const sessionsReducer = (state = initialState, action) => {
   switch (action.type) {
-    case FETCH_RECORDS:
-      return action.payload;
+    case FETCH_SESSIONS:
+      return { ...state, currentSession: action.payload };
+    case SAVE_SESSION:
+      return { ...state, paylod: action.payload };
     default:
-      return records;
+      return state;
   }
 };
 
-const rangeReducer = (range = RANGES.TODAY, action) => {
-  switch (action.type) {
-    case RANGE_SELECTED:
-      return action.payload;
-    default:
-      return range;
-  }
-};
-
-const currentRecordReducer = (record = {}, action) => {
-  switch (action.type) {
-    case UPDATE_CURRENT_RECORD:
-      if (action.payload === null) {
-        return {};
-      }
-      return { ...record, ...action.payload };
-    default:
-      return record;
-  }
-};
-
-export default combineReducers({
-  records: recordsReducer,
-  range: rangeReducer,
-  currentRecord: currentRecordReducer
-});
+export default sessionsReducer;

@@ -26,7 +26,7 @@ const storage = {
           case "false":
             return false;
           default:
-            return ret;
+            return JSON.parse(ret);
         }
       } else {
         // TODO: add cookie fallback

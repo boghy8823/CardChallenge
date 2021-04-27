@@ -1,42 +1,35 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import ROUTES from "../../constants/routes";
 import { PageWrapper, Container } from "./History.styled";
 import NavigationLink from "../../components/NavigationLink";
 import { isToday, isThisWeek, isThisMonth } from "../../helpers/timerHelper";
+import RANGES from "../../constants/ranges";
+import server from "../../apis/server";
+import { fetchSessions } from "../../actions";
 
 const History = () => {
-  const sessions = [
-    {
-      start: "2021-04-22T06:45:00.000Z",
-      end: "2021-04-22T07:45:00.000Z",
-      duration: 131,
-      name: "today",
-    },
-    {
-      start: "2021-04-22T06:45:00.000Z",
-      end: "2021-04-22T07:45:00.000Z",
-      duration: 131,
-      name: "today",
-    },
-    {
-      start: "2021-04-22T06:45:00.000Z",
-      end: "2021-04-22T07:45:00.000Z",
-      duration: 51,
-      name: "today",
-    },
-    {
-      start: "2021-04-19T06:45:00.000Z",
-      end: "2021-04-19T07:45:00.000Z",
-      duration: 111,
-      name: "week",
-    },
-    {
-      start: "2021-03-17T06:45:00.000Z",
-      end: "2021-03-17T07:45:00.000Z",
-      duration: 121,
-      name: "month",
-    },
-  ];
+  const dispatch = useDispatch();
+
+  const sessions = useSelector((state) => state.sessions);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const loadSessions = async () => {
+      setLoading(true);
+      try {
+        const { data } = await server.get("/sessions");
+
+        dispatch(fetchSessions(data));
+      } catch (err) {
+        setError(err?.response?.data?.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+    loadSessions();
+  }, [dispatch]);
 
   const getSessionForToday = () => {
     return sessions
@@ -63,11 +56,25 @@ const History = () => {
         <NavigationLink route={ROUTES.HISTORY}>History</NavigationLink>
         <p>History</p>
         <div>
-          <p>Ranges:</p>
-          <div>Day: {getSessionForToday()}</div>
-          <div>Week: {getSessionForWeek()}</div>
-          <div>Month {getSessionForMonth()}</div>
+          {loading ? (
+            <div>Loading...</div>
+          ) : (
+            sessions && (
+              <>
+                <div>
+                  {RANGES.TODAY}: {getSessionForToday()}
+                </div>
+                <div>
+                  {RANGES.THIS_WEEK}: {getSessionForWeek()}
+                </div>
+                <div>
+                  {RANGES.THIS_MONTH} {getSessionForMonth()}
+                </div>
+              </>
+            )
+          )}
         </div>
+        {error && <p>There has been an error</p>}
       </Container>
     </PageWrapper>
   );

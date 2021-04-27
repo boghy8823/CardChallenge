@@ -4,8 +4,8 @@ const useFieldChange = (initialState) => {
   const [value, setValue] = useState(initialState);
 
   const setEventValue = useCallback(
-    (e) => {
-      setValue(e.target.value);
+    (value) => {
+      setValue(value);
     },
     [setValue]
   );

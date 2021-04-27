@@ -5,7 +5,7 @@ const initialState = { currentSession: null, error: null, loading: false };
 const sessionsReducer = (state = initialState, action) => {
   switch (action.type) {
     case FETCH_SESSIONS:
-      return { ...state, currentSession: action.payload };
+      return { ...state, sessions: action.payload };
     case SAVE_SESSION:
       return { ...state, paylod: action.payload };
     default:

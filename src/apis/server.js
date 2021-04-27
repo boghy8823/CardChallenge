@@ -1,5 +1,6 @@
 import axios from "axios";
 
 export default axios.create({
-  baseURL: "http://localhost:3033"
+  // eslint-disable-next-line no-undef
+  baseURL: process.env.REACT_APP_SERVER_URL
 });

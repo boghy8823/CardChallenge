@@ -1,5 +1,12 @@
 # Pento tech challenge
 
+Video Demo: https://aaq9kkoj.hippovideo.io/video/play/_R2FhIb8a9FNoikHrw53ek2IQHdLDYJtZM7RwiT18g0?org_tok=9gsq6ajiKyrBISlJrN4KtQ&_=1619610226258&
+Watch Video
+
+
+Stack used: React, Redux, styled components, NodeJs
+
+
 Thanks for taking the time to do our tech challenge.
 
 The challenge is to build a small full stack web app, that can help a freelancer track their time.

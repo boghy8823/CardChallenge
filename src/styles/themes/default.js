@@ -1,5 +1,5 @@
 const fonts = {
-  primary: "'Helvetica', sans-serif;",
+  primary: "'Roboto', sans-serif;",
 };
 
 const colors = {

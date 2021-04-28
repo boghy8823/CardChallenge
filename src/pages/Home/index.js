@@ -1,7 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import server from "../../apis/server";
-import { PageWrapper, Container, Button, Input } from "./Home.styled";
+import {
+  PageWrapper,
+  Container,
+  Button,
+  TimerContainer,
+  CurrentTime,
+  SessionDuration,
+  ControlsWrapper,
+  StyledInput,
+} from "./Home.styled";
 import useFieldChange from "../../hooks/useFieldChange";
 import storage from "../../helpers/storage";
 import { formatDuration } from "../../helpers/timerHelper";
@@ -76,31 +85,41 @@ const Home = () => {
     setTimerStarted(false);
   };
 
-
   return (
     <PageWrapper>
       <Container>
-        <p>{formatDuration(elapsedTime)}</p>
-        <Input
-          id="name"
-          name="name"
-          label="Session Name"
-          onChange={(e) => setSessionName(e.target.value)}
-          value={sessionName}
-          placeholder="What are you working on?"
-        />
-        <Button onClick={onStart} disabled={loading}>
-          Start
-        </Button>
-        <Button onClick={onStop} disabled={loading}>
-          Stop
-        </Button>
-        <Button
-          onClick={onSave}
-          disabled={!sessionName || loading || elapsedTime === 0}
-        >
-          Save
-        </Button>
+        <TimerContainer>
+          <CurrentTime gutterTop="30" gutterBottom="30">
+            Friday 22, September
+          </CurrentTime>
+          <SessionDuration gutterTop="20" gutterBottom="30">
+            {formatDuration(elapsedTime)}
+          </SessionDuration>
+          <StyledInput
+            id="name"
+            name="name"
+            label="Session Name"
+            onChange={(e) => setSessionName(e.target.value)}
+            value={sessionName}
+            placeholder="What are you working on?"
+          />
+
+          <ControlsWrapper>
+            <Button onClick={onStart} disabled={loading}>
+              Start
+            </Button>
+            <Button onClick={onStop} disabled={loading}>
+              Stop
+            </Button>
+            <Button
+              onClick={onSave}
+              disabled={!sessionName || loading || elapsedTime === 0}
+            >
+              Save
+            </Button>
+          </ControlsWrapper>
+        </TimerContainer>
+
         {error && <p>There has been an error</p>}
       </Container>
     </PageWrapper>

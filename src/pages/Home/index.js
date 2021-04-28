@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import server from "../../apis/server";
-import ROUTES from "../../constants/routes";
 import { PageWrapper, Container, Button, Input } from "./Home.styled";
 import useFieldChange from "../../hooks/useFieldChange";
 import storage from "../../helpers/storage";
 import { formatDuration } from "../../helpers/timerHelper";
-import NavigationLink from "../../components/NavigationLink";
 import { saveSession } from "../../actions";
 
 const Home = () => {
@@ -78,11 +76,10 @@ const Home = () => {
     setTimerStarted(false);
   };
 
+
   return (
     <PageWrapper>
       <Container>
-        <NavigationLink route={ROUTES.HOME}>Home</NavigationLink>
-        <NavigationLink route={ROUTES.HISTORY}>History</NavigationLink>
         <p>{formatDuration(elapsedTime)}</p>
         <Input
           id="name"

@@ -33,12 +33,14 @@ export const TimerContainer = styled.div`
   margin: 20px;
 `;
 
-export const CurrentTime = styled.p`
+export const Title = styled.p`
   font-family: ${({ theme }) => theme.fonts.primary};
   color: ${({ theme }) => theme.colors.white};
+  font-size: 22px;
+  text-align: center;
+  font-weight: 500;
   margin-top: ${({ gutterTop }) => gutterTop || 0}px;
   margin-bottom: ${({ gutterBottom }) => gutterBottom || 0}px;
-  margin-right: 40px;
 `;
 
 export const SessionDuration = styled.p`
@@ -55,20 +57,20 @@ export const ControlsWrapper = styled.div`
   margin: 20px 0;
 `;
 
+// TODO: move font styles to global css
 export const StyledInput = styled.input`
   width: 100%;
   display: inline-flex;
   position: relative;
-  padding: 0 25px 4px 0;
-  margin-top: 17px;
+  padding: 15px;
+  margin-top: 10px;
   box-sizing: border-box;
   font-size: 18px;
-  letter-spacing: 1.5px;
-  line-height: 24px;
-  color: ${({ theme }) => theme.colors.blue};
+  color: ${({ theme }) => theme.colors.grey};
   border: 0;
-  border-bottom: 1px solid ${({ theme }) => theme.colors.navyBlue};
+  border: none;
   background: ${({ theme }) => theme.colors.white};
   border-radius: 0;
   cursor: text;
+  outline: none;
 `;

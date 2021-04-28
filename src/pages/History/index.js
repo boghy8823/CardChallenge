@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { PageWrapper, Container } from "./History.styled";
+import Tabs from "../../components/Tabs";
+import SessionsList from "../../components/SessionsList";
+import { PageWrapper, TabsContainer } from "./History.styled";
 import { isToday, isThisWeek, isThisMonth } from "../../helpers/timerHelper";
-import RANGES from "../../constants/ranges";
 import server from "../../apis/server";
 import { fetchSessions } from "../../actions";
 
 const History = () => {
   const dispatch = useDispatch();
   const sessions = useSelector((state) => state.sessions);
+  const [activeTabIndex, setActiveTabIndex] = useState("today");
 
   const [error, setError] = useState(null);
 
@@ -26,44 +28,58 @@ const History = () => {
   }, [dispatch]);
 
   const getSessionForToday = () => {
-    return sessions
-      .filter((session) => isToday(new Date(session.start)))
-      .map((session) => session.name);
+    return sessions.filter((session) => isToday(new Date(session.start)));
   };
 
   const getSessionForWeek = () => {
-    return sessions
-      .filter((session) => isThisWeek(new Date(session.start)))
-      .map((session) => session.name);
+    return sessions.filter((session) => isThisWeek(new Date(session.start)));
   };
 
   const getSessionForMonth = () => {
-    return sessions
-      .filter((session) => isThisMonth(new Date(session.start)))
-      .map((session) => session.name);
+    return sessions.filter((session) => isThisMonth(new Date(session.start)));
   };
+
+  // TODO replace label and tab names with constants
+  const tabs = [
+    {
+      isActive: activeTabIndex === "today",
+      label: "Today",
+      id: "today",
+    },
+    {
+      isActive: activeTabIndex === "week",
+      label: "This week",
+      id: "week",
+    },
+    {
+      isActive: activeTabIndex === "month",
+      label: "This month",
+      id: "month",
+    },
+  ];
 
   return (
     <PageWrapper>
-      <Container>
-        <p>History</p>
-        <div>
           {sessions && (
             <>
-              <div>
-                {RANGES.TODAY}: {getSessionForToday()}
-              </div>
-              <div>
-                {RANGES.THIS_WEEK}: {getSessionForWeek()}
-              </div>
-              <div>
-                {RANGES.THIS_MONTH} {getSessionForMonth()}
-              </div>
+              <TabsContainer>
+                <Tabs tabs={tabs} onTabClick={setActiveTabIndex} />
+                <SessionsList
+                  sessions={getSessionForToday()}
+                  isActive={activeTabIndex === "today"}
+                />
+                <SessionsList
+                  sessions={getSessionForWeek()}
+                  isActive={activeTabIndex === "week"}
+                />
+                <SessionsList
+                  sessions={getSessionForMonth()}
+                  isActive={activeTabIndex === "month"}
+                />
+              </TabsContainer>
             </>
           )}
-        </div>
         {error && <p>There has been an error</p>}
-      </Container>
     </PageWrapper>
   );
 };

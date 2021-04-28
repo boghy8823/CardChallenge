@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import server from "../../apis/server";
@@ -6,7 +7,7 @@ import {
   Container,
   Button,
   TimerContainer,
-  CurrentTime,
+  Title,
   SessionDuration,
   ControlsWrapper,
   StyledInput,
@@ -89,9 +90,9 @@ const Home = () => {
     <PageWrapper>
       <Container>
         <TimerContainer>
-          <CurrentTime gutterTop="30" gutterBottom="30">
-            Friday 22, September
-          </CurrentTime>
+          <Title gutterTop="30" gutterBottom="30">
+            Time Tracker
+          </Title>
           <SessionDuration gutterTop="20" gutterBottom="30">
             {formatDuration(elapsedTime)}
           </SessionDuration>

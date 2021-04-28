@@ -6,6 +6,7 @@ const colors = {
   white: "#ffffff",
   blue: "#157AF3",
   navyBlue: "#223C63",
+  grey: "#8898AF"
 };
 
 const defaultTheme = {

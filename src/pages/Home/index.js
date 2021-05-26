@@ -91,7 +91,7 @@ const Home = () => {
       <Container>
         <TimerContainer>
           <Title gutterTop="30" gutterBottom="30">
-            Time Tracker
+            Online Casino
           </Title>
           <SessionDuration gutterTop="20" gutterBottom="30">
             {formatDuration(elapsedTime)}

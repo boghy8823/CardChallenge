@@ -1,2 +1,2 @@
-export const FETCH_SESSIONS = "FETCH_SESSIONS";
-export const SAVE_SESSION = "SAVE_SESSION";
+export const FETCH_CARDS = "FETCH_CARDS";
+export const SAVE_CARD = "SAVE_CARD";

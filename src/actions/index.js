@@ -1,17 +1,17 @@
-import { SAVE_SESSION, FETCH_SESSIONS } from "./types";
+import { FETCH_CARDS, SAVE_CARD } from "./types";
 
-const fetchSessions = (sessions) => {
+const fetchCards = (cards) => {
   return {
-    type: FETCH_SESSIONS,
-    payload: sessions,
+    type: FETCH_CARDS,
+    payload: cards,
   };
 };
 
-const saveSession = (session) => {
+const saveCard = (card) => {
   return {
-    type: SAVE_SESSION,
-    payload: session,
+    type: SAVE_CARD,
+    payload: card,
   };
 };
 
-export { fetchSessions, saveSession };
+export { fetchCards, saveCard };

@@ -8,7 +8,7 @@ export const PageWrapper = styled.div`
   padding: 40px;
 `;
 
-export const TabsContainer = styled.div`
+export const CardsContainer = styled.div`
   display: flex;
   flex-direction: column;
   overflow: hidden;

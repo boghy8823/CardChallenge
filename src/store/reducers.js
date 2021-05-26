@@ -1,13 +1,13 @@
-import { SAVE_SESSION, FETCH_SESSIONS } from "../actions/types";
+import { FETCH_CARDS, SAVE_CARD } from "../actions/types";
 
-const initialState = { currentSession: null, error: null, loading: false };
+const initialState = { cards: null, error: null, loading: false };
 
 const sessionsReducer = (state = initialState, action) => {
   switch (action.type) {
-    case FETCH_SESSIONS:
-      return { ...state, sessions: action.payload };
-    case SAVE_SESSION:
-      return { ...state, paylod: action.payload };
+    case FETCH_CARDS:
+      return { ...state, cards: action.payload };
+    case SAVE_CARD:
+      return { ...state, payload: action.payload };
     default:
       return state;
   }

@@ -1,25 +1,20 @@
-var express = require('express');
+var express = require("express");
 var router = express.Router();
-const fs = require('fs');
+const fs = require("fs");
 
-router.get('/', function(req, res) {
-  res.render('index', { title: 'Express' });
-});
-
-router.post('/session', function(req, res) {
+router.post("/cards", function (req, res) {
   let data = JSON.stringify(req.body);
-  let rawdata = fs.readFileSync('sessions.json');
+  let rawdata = fs.readFileSync("cardDetails.json");
   let sessions = JSON.parse(rawdata);
   sessions.push(JSON.parse(data));
-  fs.writeFileSync('sessions.json', JSON.stringify(sessions));
+  fs.writeFileSync("cardDetails.json", JSON.stringify(sessions));
   res.end("OK");
 });
 
-router.get('/sessions', function(req, res) {
-  let rawdata = fs.readFileSync('sessions.json');
+router.get("/cards", function (req, res) {
+  let rawdata = fs.readFileSync("cardDetails.json");
   let sessions = JSON.parse(rawdata);
   res.json(sessions);
 });
-
 
 module.exports = router;

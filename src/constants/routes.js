@@ -1,6 +1,5 @@
 const ROUTES = {
-    HOME: "/",
-    CARDS: "/cards",
+    DEFAULT: ""
   };
   
   export default ROUTES;

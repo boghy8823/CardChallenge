@@ -1,13 +1,15 @@
+const { v4: uuidv4 } = require('uuid');
 var express = require("express");
 var router = express.Router();
 const fs = require("fs");
 
-router.post("/cards", function (req, res) {
+router.post("/card", function (req, res) {
   let data = JSON.stringify(req.body);
   let rawdata = fs.readFileSync("cardDetails.json");
-  let sessions = JSON.parse(rawdata);
-  sessions.push(JSON.parse(data));
-  fs.writeFileSync("cardDetails.json", JSON.stringify(sessions));
+  let cardDetails = JSON.parse(rawdata);
+  cardDetails.push(JSON.parse(data));
+  cardDetails.id = uuidv4();
+  fs.writeFileSync("cardDetails.json", JSON.stringify(cardDetails));
   res.end("OK");
 });
 

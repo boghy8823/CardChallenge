@@ -1,32 +1,39 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import useFieldChange from "../../../hooks/useFieldChange";
+import { creditCardFormat, creditCardExpiryFormat, cvcFormat } from "../../../helpers/formatters";
 import Input from "../../../components/Input";
 import Button from "../../../components/Button";
 import Modal from "../../../components/Modal";
 
-const AddCard = ({ onSubmit, closeModal, isModalOpen }) => {
+const AddCard = ({ onSubmit, closeModal, isModalOpen, cardDetails }) => {
+  const { cardHolderName, cardNumber, expirationDate, cvc } = cardDetails || "";
+
   const [buttonDisabled, setButtonDisabled] = useState(true);
-  const [cardholderName, setCardholderName] = useFieldChange({
-    value: "",
+  const [holderName, setHolderName] = useFieldChange({
+    value: cardHolderName,
     error: null,
+    modified: null
   });
-  const [cardNumber, setCardNumber] = useFieldChange({
-    value: "",
+  const [cardNo, setCardNo] = useFieldChange({
+    value: cardNumber,
     error: null,
+    modified: null
   });
-  const [expirationDate, setExpirationDate] = useFieldChange({
-    value: "",
+  const [expiracyDate, setExpiracyDate] = useFieldChange({
+    value: expirationDate,
     error: null,
+    modified: null
   });
-  const [cvcCode, setCvcCode] = useFieldChange({ value: "", error: null });
+  const [cvcCode, setCvcCode] = useFieldChange({ value: cvc, error: null, modified: null });
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
   const onSave = async () => {
     setLoading(true);
     try {
-      const cardDetails = {cardHolderName: cardholderName.value, cardNumber: cardNumber.value,expirationDate:  expirationDate.value, cvc: cvcCode.value};
+      const cardDetails = {cardHolderName: holderName.value, cardNumber: cardNo.value,expirationDate:  expiracyDate.value, cvc: cvcCode.value};
       onSubmit(cardDetails);
     } catch (err) {
       setError(err?.response?.data?.message);
@@ -37,13 +44,12 @@ const AddCard = ({ onSubmit, closeModal, isModalOpen }) => {
   };
 
   useEffect(() => {
-    setButtonDisabled(true);
-    if(!cardholderName.error && !cardNumber.error && !expirationDate.error && !cvcCode.error && 
-      cardholderName.value.length > 0 && cardNumber.value.length > 0 && expirationDate.value.length > 0 && cvcCode.value.length > 0) {
-      setButtonDisabled(false);
-    }
-  }, [cardholderName, cardNumber, expirationDate, cvcCode]);
-
+    setButtonDisabled(false);
+    // if(!holderName.error && !cardNo.error && !expiracyDate.error && !cvcCode.error && 
+    //   holderName.value.length > 0 && cardNo.value.length > 0 && expiracyDate.value.length > 0 && cvcCode.value.length > 0) {
+    //   setButtonDisabled(false);
+    // }
+  }, [holderName, cardNumber, expirationDate, cvcCode]);
 
   return (
     <Modal
@@ -57,35 +63,45 @@ const AddCard = ({ onSubmit, closeModal, isModalOpen }) => {
           type="text"
           name="cardholdername"
           id="cardholdername"
-          onChange={setCardholderName}
-          error={cardholderName.error}
+          onChange={setHolderName}
+          error={holderName.error}
           label="Name in card"
-          value={cardholderName.value}
+          modified={holderName.modified}
+          value={holderName.value}
         />
         <Input
           type="text"
           name="cardnumber"
           id="cardnumber"
-          onChange={setCardNumber}
+          onChange={setCardNo}
+          format={creditCardFormat}
+          maxLength="19"
           label="Card number"
-          value={cardNumber.value}
-          error={cardNumber.error}
+          modified={cardNo.modified}
+          value={cardNo.value}
+          error={cardNo.error}
         />
         <Input
           type="text"
           name="expirationdate"
           id="expirationdate"
-          onChange={setExpirationDate}
+          onChange={setExpiracyDate}
+          format={creditCardExpiryFormat}
+          maxLength="5"
           label="Expiry date"
-          value={expirationDate.value}
-          error={expirationDate.error}
+          modified={expiracyDate.modified}
+          value={expiracyDate.value}
+          error={expiracyDate.error}
         />
         <Input
           type="text"
           name="cvccode"
           id="cvccode"
           onChange={setCvcCode}
+          format={cvcFormat}
+          maxLength="3"
           label="CVC (Security code)"
+          modified={cvcCode.modified}
           value={cvcCode.value}
           error={cvcCode.error}
         />
@@ -106,7 +122,7 @@ AddCard.propTypes = {
     cardNumber: PropTypes.string,
     expirationDate: PropTypes.string,
     cvc: PropTypes.string,
-  }).isRequired,
+  }),
   closeModal: PropTypes.func,
   onSubmit: PropTypes.func,
   isModalOpen: PropTypes.bool,

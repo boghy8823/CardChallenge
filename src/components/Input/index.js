@@ -7,7 +7,7 @@ export const InputTypes = ["text", "number"];
 
 const Input = forwardRef(
   (
-    { onChange, value, label, type, id, disabled, error, ...props },
+    { onChange, format, value, label, maxLength, modified, type, id, disabled, error, ...props },
     ref
   ) => {
 
@@ -16,16 +16,19 @@ const Input = forwardRef(
         <StyledInput
           type={type}
           id={id}
-          value={value}
+          value={format(value)}
+          maxLength={maxLength}
           onChange={onChange}
           disabled={disabled}
+          modified={modified}
+          error={error}
           {...props}
           ref={ref}
         />
         <Label htmlFor={id} disabled={disabled}>
           {label}
         </Label>
-        {error && <InputError data-test="input-error">{error}</InputError>}
+        {error && <InputError>{error}</InputError>}
       </InputContainer>
     );
   }
@@ -33,21 +36,28 @@ const Input = forwardRef(
 
 Input.propTypes = {
   onChange: PropTypes.func.isRequired,
+  format: PropTypes.func,
   onInputButtonClick: PropTypes.func,
   value: PropTypes.string,
+  maxLength: PropTypes.string,
   disabled: PropTypes.bool,
+  modified: PropTypes.bool,
   type: PropTypes.oneOf(InputTypes),
   label: PropTypes.string,
+  inputValidatedMessage: PropTypes.string,
   id: PropTypes.string.isRequired,
   error: PropTypes.string,
 };
 
 Input.defaultProps = {
   value: "",
+  format: (d) => (d),
   disabled: false,
-  autoCapitalize: "off",
+  modified: false,
   type: "text",
   label: null,
+  inputValidatedMessage: "",
+  maxLength: null,
   error: null
 };
 

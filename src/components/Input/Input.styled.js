@@ -7,7 +7,8 @@ const labelTopPositionStyles = css`
   opacity: 1;
   transform: translate(0, 3px);
   transform-origin: top left;
-  transition: color 200ms cubic-bezier(0, 0, 0.2, 1) 0ms, transform 200ms cubic-bezier(0, 0, 0.2, 1) 50ms,
+  transition: color 200ms cubic-bezier(0, 0, 0.2, 1) 0ms,
+    transform 200ms cubic-bezier(0, 0, 0.2, 1) 50ms,
     font-size cubic-bezier(0, 0, 0.2, 1) 0ms;
   pointer-events: all;
 `;
@@ -20,9 +21,10 @@ export const StyledInput = styled.input`
   margin-top: 17px;
   box-sizing: border-box;
   font-size: 18px;
-  letter-spacing: ${({ type }) => (type === "password" ? "1.5px" : "0.4px")};
+  letter-spacing: 1.5px;
   line-height: 24px;
-  color: ${({ theme }) => theme.inputColor};
+  color: ${({ theme, error, modified }) =>
+    !error && modified ? theme.colors.green : theme.inputColor};
   border: 0;
   border-bottom: 1px solid ${({ theme }) => theme.inputBorderColor};
   background: ${({ theme }) => theme.inputBgColor};
@@ -78,6 +80,14 @@ export const InputContainer = styled.div`
 export const InputError = styled.div`
   margin: 3px 0 0 0;
   color: ${({ theme }) => theme.inputErrorColor};
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: 0.4px;
+`;
+
+export const InputValidated = styled.div`
+  margin: 3px 0 0 0;
+  color: ${({ theme }) => theme.colors.green};
   font-size: 12px;
   line-height: 16px;
   letter-spacing: 0.4px;

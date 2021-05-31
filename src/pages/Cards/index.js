@@ -3,7 +3,6 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { PageWrapper, CardsContainer } from "./Cards.styled";
 import Button from "../../components/Button";
-import EditCardDetails from "./Edit";
 import AddCard from "./Add";
 import server from "../../apis/server";
 import { fetchCards, saveCard } from "../../actions";
@@ -11,11 +10,13 @@ import { fetchCards, saveCard } from "../../actions";
 const Cards = () => {
   const dispatch = useDispatch();
   const cards = useSelector((state) => state.cards);
+  
+  const [selectedCard, setSelectedCard] = useState(null);
+  const [editModalOpen, setEditModalOpen] = useState(false);
 
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [editModalOpen, setEditModalOpen] = useState(false);
-  const [addModalOpen, setAddModalOpen] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
     setLoading(true);
@@ -39,13 +40,19 @@ const Cards = () => {
 
     dispatch(saveCard(cardDetails));
   }
+
+  const handleClick = (card) => {
+    setSelectedCard(card);
+    setEditModalOpen(!editModalOpen);
+  }
+
   return (
     <PageWrapper>
       {cards && (
         <>
           <CardsContainer>
-            {cards.map((card) => (
-              <p key={card.id} onClick={() => setEditModalOpen(!editModalOpen)}>
+            {cards.map((card, index) => (
+              <p key={index} onClick={() => handleClick(card)}>
                 Card number: {card.cardNumber}
               </p>
             ))}
@@ -53,21 +60,24 @@ const Cards = () => {
         </>
       )}
 
-      {cards && (
-        <EditCardDetails
-          onSubmit={() => {}}
-          closeModal={() => {}}
+      {selectedCard && (
+        <AddCard
+        key="mata"
+          onSubmit={onSubmit}
+          closeModal={() => setEditModalOpen(!editModalOpen)}
           isModalOpen={editModalOpen}
-          cardDetails={cards[0]}
+          cardDetails={selectedCard}
         />
       )}
 
       <AddCard
+      key="tatu"
         onSubmit={onSubmit}
-        closeModal={() => {}}
-        isModalOpen={addModalOpen}
+        closeModal={() => setModalOpen(!modalOpen)}
+        isModalOpen={modalOpen}
+        cardDetails={selectedCard}
       />
-      <Button fullWidth disabled={loading} onClick={() => setAddModalOpen(!addModalOpen)}>
+      <Button fullWidth disabled={loading} onClick={() => setModalOpen(!modalOpen)}>
         Add Card
       </Button>
       {error && <p>There has been an error</p>}

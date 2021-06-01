@@ -1,4 +1,4 @@
-import { FETCH_CARDS, SAVE_CARD } from "./types";
+import { FETCH_CARDS, SAVE_CARD, EDIT_CARD } from "./types";
 
 const fetchCards = (cards) => {
   return {
@@ -14,4 +14,12 @@ const saveCard = (card) => {
   };
 };
 
-export { fetchCards, saveCard };
+const editCard = (card) => {
+  return {
+    type: EDIT_CARD,
+    payload: card,
+  };
+};
+
+
+export { fetchCards, saveCard, editCard };

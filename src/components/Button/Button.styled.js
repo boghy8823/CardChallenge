@@ -92,7 +92,7 @@ const rippleStyle = css`
 
 const typeStyles = {
   primary: css`
-    color: ${({ theme }) => theme.colors.purple};
+    color: ${({ theme }) => theme.colors.white};
     background-color: ${({ theme }) => theme.colors.purple};
 
     &:disabled {
@@ -137,25 +137,23 @@ const typeStyles = {
 export const StyledButton = styled.button`
   display: flex;
   position: relative;
-  height: 40px;
+  height: 57px;
   min-width: 20px;
   width: ${({ fullWidth }) => (fullWidth ? "100%" : "auto")};
   flex-direction: row;
   align-items: center;
   justify-content: center;
   text-align: center;
-  text-transform: uppercase;
   vertical-align: middle;
   overflow: hidden;
   cursor: pointer;
   border: none;
   padding: 6px 24px;
   font-style: normal;
-  font-weight: 500;
-  font-size: 14px;
-  letter-spacing: 1.25px;
+  font-weight: 600;
+  font-size: ${({ theme }) => theme.fontSizes.medium};
   line-height: 17px;
-  border-radius: ${({ theme }) => theme.borderRadiuses.medium};
+  border-radius: 22px;
   user-select: none;
   transition: all 150ms ease;
 

@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { CloseButton, StyledModal, ModalBody } from "./Modal.styled";
+import { CloseButton, StyledModal, ModalBody, StyledCloseIcon } from "./Modal.styled";
 
 const Modal = ({
   onRequestClose,
@@ -27,11 +27,12 @@ const Modal = ({
       style={{
         overlay: {
           zIndex: 99,
+          backgroundColor: "rgba(102, 111, 112, 0.7)"
         },
       }}
     >
       <CloseButton onClick={onRequestClose}>
-        <span>X</span>
+        <StyledCloseIcon />
       </CloseButton>
       {children}
     </StyledModal>

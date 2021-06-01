@@ -13,6 +13,9 @@ const Input = forwardRef(
 
     return (
       <InputContainer hasError={!!error} hasValue={!!value}>
+        <Label htmlFor={id} disabled={disabled}>
+          {label}
+        </Label>
         <StyledInput
           type={type}
           id={id}
@@ -25,10 +28,7 @@ const Input = forwardRef(
           {...props}
           ref={ref}
         />
-        <Label htmlFor={id} disabled={disabled}>
-          {label}
-        </Label>
-        {error && <InputError>{error}</InputError>}
+        {error && <InputError variant="caption">{error}</InputError>}
       </InputContainer>
     );
   }

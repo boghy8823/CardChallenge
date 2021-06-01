@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import ReactModal from "react-modal";
+import { CloseIcon } from "../Icons";
 
 export const StyledModal = styled(ReactModal).attrs({
   modalClassName: "modal",
@@ -15,11 +16,12 @@ export const StyledModal = styled(ReactModal).attrs({
     box-shadow: none;
     margin: 30px auto 0 auto;
     width: 100%;
-    max-width: 450px;
+    max-width: ${({ maxWidth }) => maxWidth || "450px"};
     max-height: 600px;
     min-height: 50px;
-    overflow-y:visible;
-    background: ${({ theme }) => theme.colors.gray};
+    overflow-y: visible;
+    background: ${({ theme }) => theme.colors.white};
+    padding: 30px 30px 60px;
     z-index: 9;
   }
 `;
@@ -51,4 +53,10 @@ export const ModalBody = styled.div`
   position: relative;
   padding: 48px 24px 24px;
   overflow: auto;
+`;
+
+export const StyledCloseIcon = styled(CloseIcon)`
+  & path {
+    fill: ${({ theme }) => theme.colors.black};
+  }
 `;

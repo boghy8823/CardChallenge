@@ -1,5 +1,5 @@
 const fonts = {
-  primary: "Circular Pro",
+  primary: "Circular Pro, sans-serif",
 };
 
 const fontSizes = {
@@ -23,22 +23,25 @@ const colors = {
   beige: "#E5E5E5",
   white: "#FFFFFF",
   gray: "#D3D8E1",
+  blueDarken10: "#666f7b",
   grayDarken10: "#798291",
   grayDarked20: "#444E5D",
   grayDarked30: "#1A212C",
   green: "#19AC51",
   red: "#FC484C",
+  black: "#000"
 };
 
+// TODO: find better names for spacings
 const spacings = {
-  4: "4px",
-  8: "8px",
-  16: "16px",
-  24: "24px",
-  32: "32px",
-  40: "40px",
-  48: "48px",
-  56: "56px",
+  s: "4px",
+  m: "8px",
+  l: "16px",
+  xl: "24px",
+  xxl: "32px",
+  xxxl: "40px",
+  xxxxl: "48px",
+  xxxxxl: "56px",
 };
 
 const defaultTheme = {

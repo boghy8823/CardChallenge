@@ -16,7 +16,7 @@ const PaymentMethods = () => {
 
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [modalOpen, setModalOpen] = useState(false);
+  const [addModalOpen, setAddModalOpen] = useState(false);
 
   useEffect(() => {
     setLoading(true);
@@ -91,14 +91,14 @@ const PaymentMethods = () => {
 
       <PaymentMethodDetails
         onSubmit={onSave}
-        closeModal={() => setModalOpen(!modalOpen)}
-        isModalOpen={modalOpen}
+        closeModal={() => setAddModalOpen(!addModalOpen)}
+        isModalOpen={addModalOpen}
       />
       <Button
         width="310px"
         height="57px"
         disabled={loading}
-        onClick={() => setModalOpen(!modalOpen)}
+        onClick={() => setAddModalOpen(!addModalOpen)}
       >
         Add new card
       </Button>

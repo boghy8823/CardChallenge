@@ -121,6 +121,7 @@ const PaymentMethodDetails = ({
             label="Name in card"
             modified={ownerName.modified}
             value={ownerName.value}
+            data-test="holder-name"
           />
         </FieldRow>
         <FieldRow>
@@ -136,6 +137,7 @@ const PaymentMethodDetails = ({
             modified={cardNo.modified}
             value={cardNo.value}
             error={cardNo.error}
+            data-test="card-number"
           />
         </FieldRow>
         <FieldRow>
@@ -151,6 +153,7 @@ const PaymentMethodDetails = ({
             modified={expiracyDate.modified}
             value={expiracyDate.value}
             error={expiracyDate.error}
+            data-test="expiration-date"
           />
         </FieldRow>
         <FieldRow>
@@ -166,6 +169,7 @@ const PaymentMethodDetails = ({
             modified={cvcCode.modified}
             value={cvcCode.value}
             error={cvcCode.error}
+            data-test="cvc-code"
           />
         </FieldRow>
 
@@ -175,6 +179,7 @@ const PaymentMethodDetails = ({
             height="57px"
             type="submit"
             disabled={loading || buttonDisabled}
+            data-test="payment-method-submit-btn"
           >
             Confirm
           </Button>

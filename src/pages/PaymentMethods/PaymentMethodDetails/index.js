@@ -7,19 +7,26 @@ import {
   creditCardExpiryFormat,
   cvcFormat,
 } from "../../../helpers/formatters";
-import { ButtonContainer, FieldRow } from "./AddCard.styled";
+import CreditCard from "../../../components/CreditCard";
+import { ButtonContainer, FieldRow } from "./PaymentMethodDetails.styled";
 import Typography from "../../../components/Typography";
 import Input from "../../../components/Input";
 import Button from "../../../components/Button";
 import Modal from "../../../components/Modal";
 
-const AddCard = ({ onSubmit, closeModal, isModalOpen, cardDetails }) => {
-  const { cardHolderName, cardNumber, expirationDate, cvc, id } =
-    cardDetails || "";
+const PaymentMethodDetails = ({
+  onSubmit,
+  closeModal,
+  isModalOpen,
+  paymentMethodDetails,
+  inEditMode,
+}) => {
+  const { holderName, cardNumber, expirationDate, cvc, id } =
+  paymentMethodDetails || "";
 
   const [buttonDisabled, setButtonDisabled] = useState(true);
-  const [holderName, setHolderName] = useFieldChange({
-    value: cardHolderName,
+  const [ownerName, setOwnerName] = useFieldChange({
+    value: holderName,
     error: null,
     modified: null,
   });
@@ -46,7 +53,7 @@ const AddCard = ({ onSubmit, closeModal, isModalOpen, cardDetails }) => {
     setLoading(true);
     try {
       const cardDetails = {
-        cardHolderName: holderName.value,
+        holderName: ownerName.value,
         cardNumber: cardNo.value,
         expirationDate: expiracyDate.value,
         cvc: cvcCode.value,
@@ -64,13 +71,14 @@ const AddCard = ({ onSubmit, closeModal, isModalOpen, cardDetails }) => {
 
   useEffect(() => {
     setButtonDisabled(true);
+    // TOOD: Refactor this
     if (
-      !holderName.error &&
+      !ownerName.error &&
       !cardNo.error &&
       !expiracyDate.error &&
       !cvcCode.error &&
-      holderName.value &&
-      holderName.value.length > 0 &&
+      ownerName.value &&
+      ownerName.value.length > 0 &&
       cardNo.value &&
       cardNo.value.length > 0 &&
       expiracyDate.value &&
@@ -80,7 +88,7 @@ const AddCard = ({ onSubmit, closeModal, isModalOpen, cardDetails }) => {
     ) {
       setButtonDisabled(false);
     }
-  }, [holderName, cardNumber, expirationDate, cvcCode]);
+  }, [ownerName, cardNumber, expirationDate, cvcCode]);
 
   return (
     <Modal
@@ -90,8 +98,17 @@ const AddCard = ({ onSubmit, closeModal, isModalOpen, cardDetails }) => {
       borderRadius="32px"
     >
       <Typography color="black" variant="h2" as="h2" gutterBottom="xxxxxl">
-        Add your card details
+        {(inEditMode ? "Edit your card" : "Add your card details")}
       </Typography>
+      {inEditMode && (
+        <CreditCard
+          key={paymentMethodDetails.id}
+          holderName={ownerName.value}
+          cardNumber={cardNo.value}
+          expirationDate={expiracyDate.value}
+          cvc={cvcCode.value}
+        />
+      )}
       <form onSubmit={onSave}>
         <FieldRow>
           <Input
@@ -99,11 +116,11 @@ const AddCard = ({ onSubmit, closeModal, isModalOpen, cardDetails }) => {
             name="cardholdername"
             id="cardholdername"
             placeholder="John Doe"
-            onChange={setHolderName}
-            error={holderName.error}
+            onChange={setOwnerName}
+            error={ownerName.error}
             label="Name in card"
-            modified={holderName.modified}
-            value={holderName.value}
+            modified={ownerName.modified}
+            value={ownerName.value}
           />
         </FieldRow>
         <FieldRow>
@@ -154,8 +171,8 @@ const AddCard = ({ onSubmit, closeModal, isModalOpen, cardDetails }) => {
 
         <ButtonContainer>
           <Button
-            fullWidth
-            loading={loading}
+            width="100%"
+            height="57px"
             type="submit"
             disabled={loading || buttonDisabled}
           >
@@ -170,9 +187,10 @@ const AddCard = ({ onSubmit, closeModal, isModalOpen, cardDetails }) => {
   );
 };
 
-AddCard.propTypes = {
-  cardDetails: PropTypes.shape({
-    cardHolderName: PropTypes.string,
+PaymentMethodDetails.propTypes = {
+  paymentMethodDetails: PropTypes.shape({
+    id: PropTypes.oneOfType ([PropTypes.string, PropTypes.number]),
+    holderName: PropTypes.string,
     cardNumber: PropTypes.string,
     expirationDate: PropTypes.string,
     cvc: PropTypes.string,
@@ -180,12 +198,14 @@ AddCard.propTypes = {
   closeModal: PropTypes.func,
   onSubmit: PropTypes.func,
   isModalOpen: PropTypes.bool,
+  inEditMode: PropTypes.bool,
 };
 
-AddCard.defaultProps = {
+PaymentMethodDetails.defaultProps = {
   closeModal: () => {},
   onSubmit: () => {},
   isModalOpen: false,
+  inEditMode: false,
 };
 
-export default AddCard;
+export default PaymentMethodDetails;

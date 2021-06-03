@@ -17,7 +17,7 @@ export const StyledModal = styled(ReactModal).attrs({
     margin: 30px auto 0 auto;
     width: 100%;
     max-width: ${({ maxWidth }) => maxWidth || "450px"};
-    max-height: 600px;
+    max-height: 850px;
     min-height: 50px;
     overflow-y: visible;
     background: ${({ theme }) => theme.colors.white};

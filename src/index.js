@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import { createStore } from "redux";
 import { BrowserRouter as Router } from "react-router-dom";
-import reducers from "./store/reducers";
+import reducers from "./store/PaymentMethods";
 import App from "./App";
 import { PUBLIC_URL } from "./constants/globalConstants";
 

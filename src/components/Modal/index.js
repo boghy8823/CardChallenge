@@ -62,6 +62,4 @@ Modal.defaultProps = {
 
 export { ModalBody };
 
-Modal.displayName = "Modal";
-
 export default Modal;

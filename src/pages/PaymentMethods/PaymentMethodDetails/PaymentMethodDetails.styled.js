@@ -23,8 +23,4 @@ export const FieldRow = styled.div`
   display: flex;
   margin-bottom: ${({ theme }) => theme.spacings.l || "0px"};
   width: 100%;
-
-  & > div {
-    width: 100%;
-  }
 `;

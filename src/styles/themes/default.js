@@ -1,5 +1,5 @@
 const fonts = {
-  primary: "Circular Pro, sans-serif",
+  primary: "'Circular Pro', sans-serif",
 };
 
 const fontSizes = {

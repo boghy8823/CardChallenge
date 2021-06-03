@@ -22,7 +22,6 @@ export const componentsStyles = {
 };
 
 export const StyledTypography = styled.p`
-  font-family: ${({ theme }) => theme.fonts.primary};
   font-style: normal;
   font-weight: ${({ fontWeight }) => fontWeight || "normal"};
   font-size: ${({ theme }) => theme.fontSizes.medium};

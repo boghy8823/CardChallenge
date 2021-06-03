@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 const Label = styled.label`
-  font-family: ${({ theme }) => theme.fonts.primary};
   font-size: ${({ theme }) => theme.fontSizes.medium};
   top: 0px;
   left: 0;

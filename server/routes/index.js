@@ -22,7 +22,7 @@ router.patch("/card", function (req, res) {
   const updatedDetails = cardDetails.map((card) => {
     if (card.id === req.body.id) {
       card.id === req.body.id;
-      card.cardHolderName = req.body.cardHolderName;
+      card.holderName = req.body.holderName;
       card.cardNumber = req.body.cardNumber;
       card.expirationDate = req.body.expirationDate;
       card.cvc = req.body.cvc;

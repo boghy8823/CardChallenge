@@ -1,18 +1,36 @@
 import React, { forwardRef } from "react";
 import PropTypes from "prop-types";
 import Label from "../Label";
-import { StyledInput, InputContainer, InputError } from "./Input.styled";
+import { FormErrorIcon, FormSuccessIcon } from "../../components/Icons";
+import {
+  StyledInput,
+  InputContainer,
+  InputError,
+  ValidFormIconWrapper,
+  InvalidFormIconWrapper,
+} from "./Input.styled";
 
 export const InputTypes = ["text", "number"];
 
 const Input = forwardRef(
   (
-    { onChange, format, value, label, maxLength, modified, type, id, disabled, error, ...props },
+    {
+      onChange,
+      format,
+      value,
+      label,
+      maxLength,
+      modified,
+      type,
+      id,
+      disabled,
+      error,
+      ...props
+    },
     ref
   ) => {
-
     return (
-      <InputContainer hasError={!!error} hasValue={!!value}>
+      <InputContainer>
         <Label htmlFor={id} disabled={disabled}>
           {label}
         </Label>
@@ -28,6 +46,12 @@ const Input = forwardRef(
           {...props}
           ref={ref}
         />
+        <ValidFormIconWrapper hidden={!!error && modified}>
+          <FormErrorIcon />
+        </ValidFormIconWrapper>
+        <InvalidFormIconWrapper hidden={!error && modified}>
+          <FormSuccessIcon />
+        </InvalidFormIconWrapper>
         {error && <InputError variant="caption">{error}</InputError>}
       </InputContainer>
     );
@@ -51,14 +75,14 @@ Input.propTypes = {
 
 Input.defaultProps = {
   value: "",
-  format: (d) => (d),
+  format: (d) => d,
   disabled: false,
   modified: false,
   type: "text",
   label: null,
   inputValidatedMessage: "",
   maxLength: null,
-  error: null
+  error: null,
 };
 
 Input.displayName = "Input";

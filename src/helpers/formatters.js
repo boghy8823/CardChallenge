@@ -1,6 +1,3 @@
-// TODO: this can be extended to support different card formats passed as var
-// Formats can be kept in a separate source file
-
 export const creditCardFormat = (value) => {
   var cardNumber = value.split(" ").join("");
   if (cardNumber.length > 0) {

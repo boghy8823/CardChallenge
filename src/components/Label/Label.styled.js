@@ -7,7 +7,7 @@ const Label = styled.label`
   font-weight: 600;
   color: ${({ theme, disabled }) =>
     disabled ? theme.colors.gray : theme.colors.black};
-  cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
+  cursor: ${({ disabled }) => (disabled ? "not-allowed" : "auto")};
 `;
 
 export default Label;

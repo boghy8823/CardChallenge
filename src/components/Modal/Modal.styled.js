@@ -33,8 +33,8 @@ export const CloseButton = styled.button`
   border: 0;
   cursor: pointer;
   background: transparent;
-  width: 20px;
-  height: 20px;
+  width: 50px;
+  height: 50px;
   z-index: 9;
   padding: 0 0px 4px 0;
   transition: opacity ease-in-out 0.15s;

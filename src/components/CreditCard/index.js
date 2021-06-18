@@ -27,36 +27,36 @@ const CreditCard = ({
         <MasterCardIcon />
         <Wrapper>
           <Field gutterRight="xl">
-            <Typography color="gray" variant="body1" gutterBottom="m">
+            <Typography color="gray" variant="body2" gutterBottom="m">
               CVC
             </Typography>
-            <Typography color="white" variant="body1" fontWeight="600">
+            <Typography color="white" variant="body1" fontWeight="600" data-test="cvc-code">
               {cvc}
             </Typography>
           </Field>
-          <Field>
-            <Typography color="gray" variant="body1" gutterBottom="m">
+          <Field align="flex-start">
+            <Typography color="gray" variant="body2" gutterBottom="m" uppercase>
               Expires
             </Typography>
-            <Typography color="white" variant="body1" fontWeight="600">
+            <Typography color="white" variant="body1" fontWeight="600" data-test="expiration-code">
               {expirationDate}
             </Typography>
           </Field>
         </Wrapper>
       </Row>
       <Row justify="space-between">
-        <Typography color="white" variant="body1" fontWeight="600">
+        <Typography color="white" variant="body1" fontWeight="600" data-test="holder-name" gutterBottom="m">
           {holderName}
         </Typography>
         <Field direction="row" justify="space-between">
-          <Typography color="gray" variant="body1" fontWeight="600">
+          <Typography color="gray" variant="body1" fontWeight="600" data-test="card-number">
             {cardNumber}
           </Typography>
           {editable && (
             <Button
               onClick={editCardDetails}
               variant="clear"
-              height="36px"
+              height="26px"
               width="28px"
               disabled={loading || error}
             >

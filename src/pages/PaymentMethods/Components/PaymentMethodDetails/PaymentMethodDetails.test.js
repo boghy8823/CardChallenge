@@ -1,5 +1,5 @@
 import React from "react";
-import { mount } from "../../../helpers/testHelpers";
+import { mount } from "../../../../helpers/testHelpers";
 import PaymentMethodDetails from "./index";
 
 const sampleCard = {

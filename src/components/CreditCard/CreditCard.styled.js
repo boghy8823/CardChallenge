@@ -9,7 +9,7 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: flex-start;
   justify-content: space-between;
-  margin: 20px 0;
+  margin: 10px 0;
   min-height: 185px;
   min-width: 310px;
 `;
@@ -27,7 +27,7 @@ export const Field = styled.div`
   display: flex;
   width: 100%;
   flex-direction: ${({ direction }) => direction || "column"};
-  align-items: center;
+  align-items: ${({ align }) => align || "center"};
   justify-content: ${({ justify }) => justify || "flex-start"};
   margin-right: ${({ gutterRight, theme }) =>
     theme.spacings[gutterRight] || "0px"};

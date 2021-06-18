@@ -6,8 +6,8 @@ export const StyledInput = styled.input`
   display: inline-flex;
   position: relative;
   padding: 0 25px 4px 0;
-  margin-top: ${({ theme }) => theme.spacings.l};
-  margin-bottom: ${({ theme }) => theme.spacings.l};
+  margin-top: ${({ theme }) => theme.spacings.m};
+  margin-bottom: ${({ theme }) => theme.spacings.m};
   box-sizing: border-box;
   font-size: 18px;
   line-height: 24px;
@@ -58,7 +58,7 @@ export const InputError = styled(Typography)`
 export const ValidFormIconWrapper = styled.div`
   position: absolute;
   display:  ${({ hidden }) => (hidden ? "flex" : "none")}};
-  top: 40px;
+  top: 32px;
   right: 0;
   width: 17px;
   height: 14px;
@@ -67,7 +67,7 @@ export const ValidFormIconWrapper = styled.div`
 export const InvalidFormIconWrapper = styled.div`
   position: absolute;
   display: ${({ hidden }) => (hidden ? "flex" : "none")}};
-  top: 40px;
+  top: 32px;
   right: 0;
   width: 17px;
   height: 14px;

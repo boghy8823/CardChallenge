@@ -12,7 +12,7 @@ export const CardsContainer = styled.div`
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  background: ${({ theme }) => theme.colors.white};
+  background-color: ${({ theme }) => theme.colors.beige};
 `;
 
 export const ButtonContainer = styled.div`

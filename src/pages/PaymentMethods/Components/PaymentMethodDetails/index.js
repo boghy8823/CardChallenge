@@ -1,18 +1,18 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import useFieldChange from "../../../hooks/useFieldChange";
+import useFieldChange from "../../../../hooks/useFieldChange";
 import {
   creditCardFormat,
   creditCardExpiryFormat,
   cvcFormat,
-} from "../../../helpers/formatters";
-import CreditCard from "../../../components/CreditCard";
+} from "../../../../helpers/formatters";
+import CreditCard from "../../../../components/CreditCard";
 import { ButtonContainer, FieldRow } from "./PaymentMethodDetails.styled";
-import Typography from "../../../components/Typography";
-import Input from "../../../components/Input";
-import Button from "../../../components/Button";
-import Modal from "../../../components/Modal";
+import Typography from "../../../../components/Typography";
+import Input from "../../../../components/Input";
+import Button from "../../../../components/Button";
+import Modal from "../../../../components/Modal";
 
 const PaymentMethodDetails = ({
   onSubmit,
@@ -22,57 +22,34 @@ const PaymentMethodDetails = ({
   inEditMode,
 }) => {
   const { holderName, cardNumber, expirationDate, cvc, id } =
-  paymentMethodDetails || "";
+    paymentMethodDetails || "";
 
   const [buttonDisabled, setButtonDisabled] = useState(true);
-  const [ownerName, setOwnerName] = useFieldChange({
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  const [ownerName, setOwnerName, clearOwnerName] = useFieldChange({
     value: holderName,
     error: null,
     modified: null,
   });
-  const [cardNo, setCardNo] = useFieldChange({
+  const [cardNo, setCardNo, clearCardNo] = useFieldChange({
     value: cardNumber,
     error: null,
     modified: null,
   });
-  const [expiracyDate, setExpiracyDate] = useFieldChange({
+  const [expiracyDate, setExpiracyDate, clearExpiracyDate] = useFieldChange({
     value: expirationDate,
     error: null,
     modified: null,
   });
-  const [cvcCode, setCvcCode] = useFieldChange({
+  const [cvcCode, setCvcCode, clearCvcCode] = useFieldChange({
     value: cvc,
     error: null,
     modified: null,
   });
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false);
 
-  const onSave = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    try {
-      const cardDetails = {
-        holderName: ownerName.value,
-        cardNumber: cardNo.value,
-        expirationDate: expiracyDate.value,
-        cvc: cvcCode.value,
-        id: id,
-      };
-      onSubmit(cardDetails);
-    } catch (err) {
-      setError(err?.response?.data?.message);
-      setLoading(false);
-    } finally {
-      setLoading(false);
-      closeModal();
-    }
-  };
-
-  useEffect(() => {
-    setButtonDisabled(true);
-    // TOOD: Refactor this
-    if (
+  const shouldEnableSubmitButton = () => (
       !ownerName.error &&
       !cardNo.error &&
       !expiracyDate.error &&
@@ -85,7 +62,40 @@ const PaymentMethodDetails = ({
       expiracyDate.value.length > 0 &&
       cvcCode.value &&
       cvcCode.value.length > 0
-    ) {
+    );
+
+  const clearForm = () => {
+    clearOwnerName();
+    clearCardNo();
+    clearExpiracyDate();
+    clearCvcCode();
+    closeModal();
+  };
+
+  const onSave = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      const cardDetails = {
+        holderName: ownerName.value,
+        cardNumber: cardNo.value,
+        expirationDate: creditCardExpiryFormat(expiracyDate.value),
+        cvc: cvcCode.value,
+        id: id,
+      };
+      onSubmit(cardDetails);
+    } catch (err) {
+      setError(err?.response?.data?.message);
+      setLoading(false);
+    } finally {
+      setLoading(false);
+      clearForm();
+    }
+  };
+
+  useEffect(() => {
+    setButtonDisabled(true);
+    if (shouldEnableSubmitButton()) {
       setButtonDisabled(false);
     }
   }, [ownerName, cardNumber, expirationDate, cvcCode]);
@@ -97,8 +107,15 @@ const PaymentMethodDetails = ({
       maxWidth="375px"
       borderRadius="32px"
     >
-      <Typography color="black" variant="h2" as="h2" gutterBottom="xxxxxl">
-        {(inEditMode ? "Edit your card" : "Add your card details")}
+      <Typography
+        color="black"
+        variant="h2"
+        as="h2"
+        gutterBottom="xxl"
+        gutterTop="xxl"
+        fontWeight="700"
+      >
+        {inEditMode ? "Edit your card" : "Add your card details"}
       </Typography>
       {inEditMode && (
         <CreditCard
@@ -194,7 +211,7 @@ const PaymentMethodDetails = ({
 
 PaymentMethodDetails.propTypes = {
   paymentMethodDetails: PropTypes.shape({
-    id: PropTypes.oneOfType ([PropTypes.string, PropTypes.number]),
+    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     holderName: PropTypes.string,
     cardNumber: PropTypes.string,
     expirationDate: PropTypes.string,

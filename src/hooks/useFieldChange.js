@@ -1,4 +1,3 @@
-/* eslint-disable no-debugger */
 import { useState, useCallback,  } from "react";
 import validateCardDetails from "../helpers/validation";
 
@@ -15,8 +14,12 @@ const useFieldChange = (initialState) => {
     },
     [setValue]
   );
+  
+  const resetField = (newValue = "") => {
+    setValue(newValue);
+  };
 
-  return [value, setEventValue];
+  return [value, setEventValue, resetField];
 };
 
 export default useFieldChange;

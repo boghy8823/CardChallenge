@@ -30,4 +30,5 @@ export const StyledTypography = styled.p`
   color: ${({ color, theme }) => theme.colors[color] || theme.colors.gray};
   ${({ variant }) => componentsStyles[variant]}
   text-align: ${({ textAlign }) => textAlign};
+  text-transform: ${({ uppercase }) => uppercase ? "uppercase" : "none"};
 `;

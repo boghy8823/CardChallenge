@@ -11,7 +11,6 @@ router.post("/card", function (req, res) {
 
   fs.writeFileSync("cardDetails.json", JSON.stringify(cardDetails, null, 2));
 
-  console.log("CARD DETAILS ", cardDetails);
   res.json(cardDetails.find((card) => card.id === req.body.id));
 });
 

@@ -4,7 +4,7 @@ import { StyledTypography } from "./Typography.styled";
 
 export const variants = ["h1","h2", "body1", "body2", "button", "caption"];
 
-const Typography = ({ component, variant, gutterBottom, gutterTop, textAlign, color, ...props }) => {
+const Typography = ({ component, variant, gutterBottom, gutterTop, textAlign, color, uppercase, ...props }) => {
   return (
     <StyledTypography
       as={component || "p"}
@@ -12,6 +12,7 @@ const Typography = ({ component, variant, gutterBottom, gutterTop, textAlign, co
       textAlign={textAlign}
       gutterBottom={gutterBottom}
       gutterTop={gutterTop}
+      uppercase={uppercase}
       color={color}
       {...props}
     />
@@ -26,6 +27,7 @@ Typography.propTypes = {
   color: PropTypes.string,
   textAlign: PropTypes.string,
   fontWeight: PropTypes.string,
+  uppercase: PropTypes.bool
 };
 
 Typography.defaultProps = {
@@ -36,6 +38,7 @@ Typography.defaultProps = {
   textAlign: "left",
   color: "",
   fontWeight: "normal",
+  uppercase: false
 };
 
 Typography.displayName = "Typography";

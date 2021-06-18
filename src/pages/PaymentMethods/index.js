@@ -3,7 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { PageWrapper, CardsContainer } from "./PaymentMethods.styled";
 import CreditCard from "../../components/CreditCard";
 import Button from "../../components/Button";
-import PaymentMethodDetails from "./PaymentMethodDetails";
+import Typography from "../../components/Typography";
+import PaymentMethodDetails from "./Components/PaymentMethodDetails";
 import server from "../../apis/server";
 import { fetchCards, saveCard, editCard } from "../../store/PaymentMethods";
 
@@ -49,7 +50,7 @@ const PaymentMethods = () => {
     dispatch(editCard(data));
   };
 
-  const handleClick = (paymentMethod) => {
+  const handleEditClick = (paymentMethod) => {
     setSelectedPaymentMethod(paymentMethod);
     setEditModalOpen(!editModalOpen);
   };
@@ -63,6 +64,24 @@ const PaymentMethods = () => {
     <PageWrapper>
       {paymentMethods && (
         <CardsContainer>
+          <Typography
+            color="purple"
+            variant="h2"
+            as="h2"
+            gutterBottom="m"
+            gutterTop="m"
+            fontWeight="800"
+          >
+            Your cards
+          </Typography>
+          <Typography
+            color="blueDarken10"
+            variant="body2"
+            gutterBottom="xxl"
+            gutterTop="s"
+          >
+            Add, edit or delete your cards any time
+          </Typography>
           {paymentMethods.map((paymentMethod) => (
             <CreditCard
               key={paymentMethod.id}
@@ -70,7 +89,7 @@ const PaymentMethods = () => {
               cardNumber={paymentMethod.cardNumber}
               expirationDate={paymentMethod.expirationDate}
               cvc={paymentMethod.cvc}
-              editCardDetails={() => handleClick(paymentMethod)}
+              editCardDetails={() => handleEditClick(paymentMethod)}
               loading={loading}
               error={error}
               editable
@@ -93,6 +112,7 @@ const PaymentMethods = () => {
         onSubmit={onSave}
         closeModal={() => setAddModalOpen(!addModalOpen)}
         isModalOpen={addModalOpen}
+        paymentMethodDetails={selectedPaymentMethod}
       />
       <Button
         width="310px"

@@ -1,0 +1,23 @@
+[
+  {
+    "holderName": "John Cabruci",
+    "cardNumber": "5532 1234 5545 8011",
+    "expirationDate": "08/22",
+    "cvc": "001",
+    "id": 1622804536875
+  },
+  {
+    "holderName": "Bogdan Test",
+    "cardNumber": "5532 1234 5545 8011",
+    "expirationDate": "11/21",
+    "cvc": "111",
+    "id": 1623675109039
+  },
+  {
+    "holderName": "Test",
+    "cardNumber": "4444 1111 2233 3221",
+    "expirationDate": "11/22",
+    "cvc": "111",
+    "id": 1623676120989
+  }
+]
